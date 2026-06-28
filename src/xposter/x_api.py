@@ -48,6 +48,13 @@ class XCredentials:
             raise RuntimeError(f"Missing X credential environment variable(s): {', '.join(missing)}")
         return cls(**values)
 
+    @classmethod
+    def available_in_env(cls) -> bool:
+        return all(
+            os.environ.get(name)
+            for name in ["X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET"]
+        )
+
 
 class XPublisher:
     def __init__(self, credentials: XCredentials, api_base: str = DEFAULT_API_BASE) -> None:
@@ -130,10 +137,17 @@ class DryRunPublisher:
 
 
 def publisher_from_env() -> XBearerPublisher | XPublisher:
+    if XCredentials.available_in_env():
+        return XPublisher(XCredentials.from_env())
+
     bearer_credentials = XBearerCredentials.from_env()
     if bearer_credentials:
         return XBearerPublisher(bearer_credentials)
-    return XPublisher(XCredentials.from_env())
+    raise RuntimeError(
+        "Missing X credentials. Set OAuth 1.0a user credentials "
+        "(X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET) "
+        "or an OAuth 2.0 user-context X_BEARER_TOKEN. App-only bearer tokens cannot post."
+    )
 
 
 def _open_json(req: request.Request) -> dict[str, Any]:
