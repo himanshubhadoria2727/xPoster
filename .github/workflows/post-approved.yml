@@ -1,0 +1,53 @@
+name: Post Approved X Drafts
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  post:
+    if: ${{ github.event.issue.pull_request == null && startsWith(github.event.comment.body, '/post') && contains(github.event.issue.title, 'Daily X drafts') && contains('OWNER,MEMBER,COLLABORATOR', github.event.comment.author_association) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch issue body
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue view "$ISSUE_NUMBER" --json body --jq .body > issue_body.md
+
+      - name: Post approved drafts
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          POST_COMMAND: ${{ github.event.comment.body }}
+        run: |
+          python -m xposter post-approved --issue-body-file issue_body.md --command "$POST_COMMAND" --updated-body-file updated_issue.md --result-file result.md
+
+      - name: Update issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          if [ -f updated_issue.md ]; then
+            gh issue edit "$ISSUE_NUMBER" --body-file updated_issue.md
+          fi
+          if [ -f result.md ]; then
+            gh issue comment "$ISSUE_NUMBER" --body-file result.md
+          fi

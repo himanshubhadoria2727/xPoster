@@ -1,0 +1,136 @@
+{
+  "daily_count": 5,
+  "max_post_length": 280,
+  "blocked_words": [
+    "guaranteed",
+    "breaking:",
+    "insider"
+  ],
+  "topics": [
+    {
+      "name": "tech",
+      "hashtags": ["#Tech", "#AI", "#Startups"],
+      "angles": [
+        "practical AI tools becoming normal work utilities",
+        "shipping smaller product improvements more often",
+        "privacy and security habits that compound over time"
+      ],
+      "templates": [
+        "{angle}. The useful question is not whether {topic} is moving fast, but whether teams are building habits that survive the hype. {hashtag}",
+        "A good {topic} trend to watch: {angle}. Boring execution usually beats loud announcements. {hashtag}",
+        "{topic} keeps rewarding people who can turn {angle} into simple workflows others can actually use. {hashtag}"
+      ],
+      "thread_templates": [
+        [
+          "{topic} thought: {angle} is becoming a real advantage, not just a talking point. {hashtag}",
+          "The teams that benefit most are the ones turning it into checklists, reviews, and repeatable decisions.",
+          "Professional edge: measure whether the tool changes outcomes, not whether it sounds impressive."
+        ]
+      ],
+      "image_prompts": [
+        "Clean editorial image of a modern workspace with code, dashboards, and product notes, professional social media style"
+      ],
+      "image_paths": []
+    },
+    {
+      "name": "politics",
+      "hashtags": ["#Politics", "#Policy", "#Governance"],
+      "angles": [
+        "clearer public communication",
+        "policy outcomes over campaign slogans",
+        "local issues getting more serious attention"
+      ],
+      "templates": [
+        "In {topic}, {angle} matters more than the daily noise. Voters notice when decisions connect to real outcomes. {hashtag}",
+        "The strongest {topic} conversations usually come back to {angle}. Less theatre, more accountability. {hashtag}",
+        "{angle} should be a basic standard in {topic}, not a bonus feature. {hashtag}"
+      ],
+      "thread_templates": [
+        [
+          "{topic} is easier to judge when the focus stays on {angle}. {hashtag}",
+          "The daily argument is usually loud. The useful question is whether people can see concrete outcomes.",
+          "A professional standard: compare claims against delivery, incentives, and who is actually affected."
+        ]
+      ],
+      "image_prompts": [
+        "Neutral editorial image of a civic building and public documents, balanced non-partisan political analysis style"
+      ],
+      "image_paths": []
+    },
+    {
+      "name": "sports",
+      "hashtags": ["#Sports", "#GameDay", "#Performance"],
+      "angles": [
+        "consistent fitness and recovery",
+        "teams adapting tactics mid-season",
+        "young players handling pressure"
+      ],
+      "templates": [
+        "{topic} is often decided by {angle}. Talent gets attention, but repeatable habits win long seasons. {hashtag}",
+        "One underrated part of {topic}: {angle}. It rarely looks flashy, but it changes results. {hashtag}",
+        "The best {topic} stories are not only about highlights. They are about {angle}. {hashtag}"
+      ],
+      "thread_templates": [
+        [
+          "{topic} note: {angle} often explains the gap between a good team and a serious contender. {hashtag}",
+          "Highlights show the result. Preparation, recovery, and tactical discipline usually explain the pattern.",
+          "That is why the best performances feel inevitable only after the hard work is already done."
+        ]
+      ],
+      "image_prompts": [
+        "Dynamic professional sports editorial image with stadium lights and tactical board, no logos, social media ready"
+      ],
+      "image_paths": []
+    },
+    {
+      "name": "business",
+      "hashtags": ["#Business", "#Markets", "#Leadership"],
+      "angles": [
+        "cash flow discipline",
+        "customer trust after the sale",
+        "focused teams saying no to distractions"
+      ],
+      "templates": [
+        "{topic} gets simpler when leaders protect {angle}. Growth without discipline turns fragile quickly. {hashtag}",
+        "A useful {topic} signal: companies that keep improving {angle} even when nobody is applauding. {hashtag}",
+        "{angle} is not glamorous, but it is often what separates durable {topic} from short-term momentum. {hashtag}"
+      ],
+      "thread_templates": [
+        [
+          "{topic} lesson: {angle} is one of the clearest signs of durable execution. {hashtag}",
+          "Most companies can look impressive for a quarter. Fewer can keep customers, margins, and teams healthy together.",
+          "The professional move is to reward boring strength before chasing visible momentum."
+        ]
+      ],
+      "image_prompts": [
+        "Professional business editorial image with charts, meeting notes, and clean office lighting, premium social media style"
+      ],
+      "image_paths": []
+    },
+    {
+      "name": "general",
+      "hashtags": ["#Perspective", "#DailyThought", "#Mindset"],
+      "angles": [
+        "clear thinking before quick reactions",
+        "small daily systems",
+        "choosing depth over constant noise"
+      ],
+      "templates": [
+        "{angle} is underrated. Most progress comes from decisions that look ordinary while they are happening. {hashtag}",
+        "A useful daily filter: does this reward {angle}, or only attention? {hashtag}",
+        "Better outcomes usually start with {angle}. The simple things are rarely easy, but they compound. {hashtag}"
+      ],
+      "thread_templates": [
+        [
+          "Daily thought: {angle} changes the quality of almost every decision. {hashtag}",
+          "It slows the impulse to react and makes room for better judgment.",
+          "The result is not always dramatic, but it is often the difference between motion and progress."
+        ]
+      ],
+      "image_prompts": [
+        "Minimal professional editorial image of a notebook, phone, and focused desk setup, thoughtful social media style"
+      ],
+      "image_paths": []
+    }
+  ]
+}

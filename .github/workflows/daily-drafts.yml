@@ -1,0 +1,69 @@
+name: Daily X Drafts
+
+on:
+  schedule:
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+    inputs:
+      post_date:
+        description: "Draft date in YYYY-MM-DD format. Defaults to today's UTC date."
+        required: false
+      count:
+        description: "Number of drafts to generate."
+        required: false
+        default: "5"
+      mode:
+        description: "Draft type: posts, threads, or mixed."
+        required: false
+        default: "mixed"
+        type: choice
+        options:
+          - mixed
+          - posts
+          - threads
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate drafts
+        run: |
+          POST_DATE="${{ github.event.inputs.post_date }}"
+          if [ -z "$POST_DATE" ]; then
+            POST_DATE="$(date -u +%F)"
+          fi
+          COUNT="${{ github.event.inputs.count }}"
+          if [ -z "$COUNT" ]; then
+            COUNT="5"
+          fi
+          MODE="${{ github.event.inputs.mode }}"
+          if [ -z "$MODE" ]; then
+            MODE="mixed"
+          fi
+          echo "POST_DATE=$POST_DATE" >> "$GITHUB_ENV"
+          python -m xposter generate-drafts --date "$POST_DATE" --count "$COUNT" --mode "$MODE" --output draft_issue.md
+
+      - name: Create or update issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create x-drafts --description "Daily X draft approvals" --color "1d9bf0" || true
+          TITLE="Daily X drafts $POST_DATE"
+          ISSUE_NUMBER="$(gh issue list --state open --search "in:title \"$TITLE\"" --json number --jq '.[0].number // empty')"
+          if [ -n "$ISSUE_NUMBER" ]; then
+            gh issue edit "$ISSUE_NUMBER" --body-file draft_issue.md --add-label x-drafts
+          else
+            gh issue create --title "$TITLE" --body-file draft_issue.md --label x-drafts
+          fi

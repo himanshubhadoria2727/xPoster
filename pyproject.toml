@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "x-daily-poster"
+version = "0.1.0"
+description = "Template-based daily X draft generation and approval-based posting through GitHub Issues."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "X Daily Poster" }]
+
+[project.scripts]
+xposter = "xposter.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
