@@ -14,7 +14,7 @@ from .x_api import DryRunPublisher, publisher_from_env
 
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="xposter")
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers = parser.add_subparsers(dest="action", required=True)
 
     generate = subparsers.add_parser("generate-drafts", help="Generate a daily GitHub Issue body.")
     generate.add_argument("--config", default=str(DEFAULT_CONFIG_PATH))
@@ -36,9 +36,9 @@ def main(argv: list[str] | None = None) -> None:
     post.add_argument("--dry-run", action="store_true", help="Do not call the X API.")
 
     args = parser.parse_args(argv)
-    if args.command == "generate-drafts":
+    if args.action == "generate-drafts":
         _generate(args)
-    elif args.command == "post-approved":
+    elif args.action == "post-approved":
         _post(args)
 
 

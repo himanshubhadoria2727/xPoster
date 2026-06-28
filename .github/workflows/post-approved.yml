@@ -12,6 +12,8 @@ jobs:
   post:
     if: ${{ github.event.issue.pull_request == null && startsWith(github.event.comment.body, '/post') && contains(github.event.issue.title, 'Daily X drafts') && contains('OWNER,MEMBER,COLLABORATOR', github.event.comment.author_association) }}
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: src
     steps:
       - name: Checkout
         uses: actions/checkout@v4
